@@ -1,6 +1,7 @@
 require "./sea_battle/GameField.rb"
 require "./sea_battle/Ship.rb"
-#tests
+
+
 def main
   f = GameField.new 10
   # p f.coordinates
@@ -9,10 +10,10 @@ def main
   # p f.coordinates
   # f.coordinates.each{|i| puts "#{i[0]} <==> #{i[0].next}"}
   s4_1 = Ship.new(4, true)
-  s3_1 = Ship.new(3, true)
+  s3_1 = Ship.new(3, false)
   s3_2 = Ship.new(3, false)
   s2_1 = Ship.new(2, true)
-  s2_2 = Ship.new(2, false)
+  s2_2 = Ship.new(4, false)
   s2_3 = Ship.new(2, false)
   s1_1 = Ship.new(1, true)
   s1_2 = Ship.new(1, true)
@@ -21,11 +22,14 @@ def main
   
   # p f.coordinates
 
-  f.set_ship(s3_2, 5, 7)
-  f.set_ship(s3_1, 0, 2)
-  f.set_ship(s2_2, 4, 5)
+  f.set_ship(s3_2, 5, 2)
+  f.set_ship(s3_1, 0, 0)
+  f.set_ship(s3_1, 2, 0)
+  f.set_ship(s3_1, 5, 1)
+  f.set_ship(s3_1, 3, 7)
+  f.set_ship(s2_2, 9, 6)
   f.print_game_field
-  # p f.coordinates
+  p f.coordinates
 
   # f.coordinates.each{ |i, j, k| puts i,j,k}
 end
