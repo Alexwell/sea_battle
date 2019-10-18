@@ -1,8 +1,8 @@
 require "./sea_battle/GameField.rb"
-
+#tests
 def main
   f = GameField.new 10
-  p f.coordinates
+  # p f.coordinates
   f.print_game_field
   # f.create_game_field
   # p f.coordinates

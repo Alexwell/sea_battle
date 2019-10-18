@@ -1,9 +1,9 @@
 class GameField
-  @@cell_default = "~"
+  @@cell_default = " ~ "
   @@cell_shooted = "-"
   @@cell_ship = "="
   @@cell_damaged = "x"
-
+  
   attr_reader :coordinates
   def initialize(size)
     @size = size
@@ -11,7 +11,13 @@ class GameField
   end
   
   def print_game_field
-    @coordinates.each {|i| puts "i = #{i[2]}"}
+    @coordinates.each {|i| 
+      if  i[1] != @size - 1
+        print i[2]
+      else
+        puts i[2]
+      end
+    }
   end
 
   private
