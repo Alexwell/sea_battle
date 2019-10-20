@@ -3,13 +3,14 @@ require "./sea_battle/Ship.rb"
 
 
 def main
-  f = GameField.new 10
-  # p f.coordinates
-  f.print_game_field
-  # f.create_game_field
-  # p f.coordinates
-  # f.coordinates.each{|i| puts "#{i[0]} <==> #{i[0].next}"}
+  manual_test
 
+end
+
+def test
+  f = GameField.new 10
+
+  f.print_game_field
 
   s4_0 = Ship.new(4, false)
   s3_1_0 = Ship.new(3, false)
@@ -35,9 +36,43 @@ def main
   f.ship_set(s1_4_1, 7, 1)
   
   f.print_game_field
-  # p f.coordinates
 
-  # f.coordinates.each{ |i, j, k| puts i,j,k}
+  
+  p rand(4)
+
+  f.auto_field_filling
+  p [true, false].sample
+end
+
+def auto_field_filling
+  f = GameField.new 10
+  f.print_game_field
+  f.auto_field_filling
+  f.print_game_field
+  # f.print_game_field(true)
+  f.shoot(2,4)
+  f.shoot(4,3)
+  f.shoot(7,8)
+  f.shoot(1,3)
+  f.shoot(3,5)
+  f.print_game_field(true)
+
+end
+
+def manual_test
+  f = GameField.new 10
+  f.auto_field_filling
+  f.print_game_field(true)
+  i = 0
+  while i < 20
+    puts "Input X"
+    x = gets.to_i
+    puts "Input Y"
+    y = gets.to_i
+    f.shoot(x,y)
+    f.print_game_field(true)
+    i += 1
+  end
 end
 
 
