@@ -28,40 +28,38 @@ class GameField
       j = 0
       puts
       i += 1
-
     end
 
   end
 
 
   def ship_set(ship, x, y)
-    p ship_check(ship,x,y)
     if !ship_check(ship, x, y)
-      p !ship_check(ship, x, y)
       return
     end
-
-
-    # if (x + ship.size) > @size or (y +ship.size) > @size
-    #   p "Wrong coordinate, ship is too big!"
-    #   return 
-    # end
-
-    # i = 0
-    # while i < @coordinates.length
-    #   if @coordinates[i][0] == x and @coordinates[i][1] == y and @coordinates[i][2] != @@cell_default
-    #     p "Cell is already filled"
-    #     return
-    #   end
-    #   i += 1
-    # end
-
-
-
     i = 0
     while i < @coordinates.length
       if @coordinates[i][0] == x and @coordinates[i][1] == y
-        @coordinates[i][2] = @@cell_ship
+        j = 0
+        while j < ship.size
+          if ship.vertical
+            @coordinates[i + j][2] = @@cell_ship
+            
+            @coordinates[i - 1][2] = @@cell_border
+            @coordinates[i - 1 - @size][2] = @@cell_border
+            @coordinates[i + ship.size - @size][2] = @@cell_border
+            @coordinates[i + j - @size][2] = @@cell_border
+
+            @coordinates[i + ship.size][2] = @@cell_border
+            @coordinates[i - 1 + @size][2] = @@cell_border 
+            @coordinates[i + j + @size][2] = @@cell_border 
+            @coordinates[i  + ship.size + @size][2] = @@cell_border
+          else
+            @coordinates[i + @size*j][2] = @@cell_ship
+
+          end
+          j += 1
+        end
       end
       i += 1
     end
@@ -92,14 +90,15 @@ class GameField
     sun_y = y + ship.size
     if sum_x > @size or sun_y > @size
       p "Wrong coordinate, ship is too big!"
-      false
+      return false
     end
 
     i = 0
     while i < @coordinates.length
-      if @coordinates[i][0] == x and @coordinates[i][1] == y and @coordinates[i][2] != @@cell_default
+      if @coordinates[i][0] == x and @coordinates[i][1] == y \
+          and @coordinates[i][2] != @@cell_default
         p "Cell is already filled"
-        false
+        return false
       end
       i += 1
     end

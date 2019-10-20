@@ -13,7 +13,9 @@ def main
   s3_1 = Ship.new(3, false)
   s3_2 = Ship.new(3, false)
   s2_1 = Ship.new(2, true)
-  s2_2 = Ship.new(4, false)
+
+  s2_2 = Ship.new(4, true)
+
   s2_3 = Ship.new(2, false)
   s1_1 = Ship.new(1, true)
   s1_2 = Ship.new(1, true)
@@ -27,7 +29,7 @@ def main
   # f.set_ship(s3_1, 2, 0)
   # f.set_ship(s3_1, 5, 1)
   # f.set_ship(s3_1, 3, 7)
-  f.ship_set(s2_2, 5, 3)
+  f.ship_set(s2_2, 5, 6)
   f.print_game_field
   p f.coordinates
 
