@@ -22,12 +22,12 @@ def main
   
   # p f.coordinates
 
-  f.set_ship(s3_2, 5, 2)
-  f.set_ship(s3_1, 0, 0)
-  f.set_ship(s3_1, 2, 0)
-  f.set_ship(s3_1, 5, 1)
-  f.set_ship(s3_1, 3, 7)
-  f.set_ship(s2_2, 9, 6)
+  # f.set_ship(s3_2, 5, 2)
+  # f.set_ship(s3_1, 0, 0)
+  # f.set_ship(s3_1, 2, 0)
+  # f.set_ship(s3_1, 5, 1)
+  # f.set_ship(s3_1, 3, 7)
+  f.set_ship(s2_2, 0, 6)
   f.print_game_field
   p f.coordinates
 
