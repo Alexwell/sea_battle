@@ -27,7 +27,7 @@ def main
   # f.set_ship(s3_1, 2, 0)
   # f.set_ship(s3_1, 5, 1)
   # f.set_ship(s3_1, 3, 7)
-  f.set_ship(s2_2, 0, 6)
+  f.ship_set(s2_2, 5, 3)
   f.print_game_field
   p f.coordinates
 
