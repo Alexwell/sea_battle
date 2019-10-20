@@ -35,7 +35,7 @@ def main
   f.ship_set(s1_4_1, 7, 1)
   
   f.print_game_field
-  p f.coordinates
+  # p f.coordinates
 
   # f.coordinates.each{ |i, j, k| puts i,j,k}
 end

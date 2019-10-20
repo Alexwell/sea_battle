@@ -20,9 +20,10 @@ class GameField
     i = 1
     while i < @size
       print i
-      print " " unless i == @size - 1
+      print " " if i < 10
       j = 0
       while j< @size - 1
+        print " " if j > 9
         print @coordinates[i + @size*j][2]
         # print " #{@coordinates[i+@size*j][0]} <=> #{@coordinates[i+@size*j][1]} "
         j += 1
