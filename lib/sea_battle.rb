@@ -3,7 +3,7 @@ require "./sea_battle/Ship.rb"
 
 
 def main
-  manual_test
+  manual_test2
 
 end
 
@@ -61,20 +61,39 @@ end
 
 def manual_test
   f = GameField.new 10
+  # p f.coordinates
+  f.print_game_field()
   f.auto_field_filling
-  f.print_game_field(true)
+  f.print_game_field()
   i = 0
+  # p f.coordinates
+
   while i < 20
     puts "Input X"
     x = gets.to_i
     puts "Input Y"
     y = gets.to_i
     f.shoot(x,y)
-    f.print_game_field(true)
+    f.print_game_field()
+    
     i += 1
   end
 end
 
+def manual_test2
+  # my_field = GameField.new 10
+  enemy_field = GameField.new 10
+ 
+  enemy_field.auto_field_filling
+  20.times { puts "Input X"
+    x = gets.to_i
+    puts "Input Y"
+    y = gets.to_i
+    enemy_field.print_game_field "enemy"
+    enemy_field.shoot(x,y)
+    enemy_field.print_game_field "my_field"
+    enemy_field.print_game_field "enemy"}
+end
 
 if __FILE__ == $0
   main

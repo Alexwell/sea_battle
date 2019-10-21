@@ -10,14 +10,10 @@ class GameField
   def initialize(size)
     @size = size + 1
     @coordinates = create_game_field
-    @helping_field = create_game_field
   end
 
-  def test
-    p "Hello from parent"
-  end
 
-  def print_game_field(helping = false)
+  def print_game_field(flag = "my_field")
     print " "
     print " " if @size > 9
     (1...@size).each { |i| print " #{i} " }
@@ -29,9 +25,17 @@ class GameField
       j = 0
       while j< @size - 1
         print " " if j > 9
-        print @coordinates[i + @size*j][2] unless helping
-        print @helping_field[i + @size*j][2] if helping
-        # print " #{@coordinates[i+@size*j][0]} <=> #{@coordinates[i+@size*j][1]} "
+        if flag == "my_field"
+          print @coordinates[i + @size*j][2]
+        else
+          if @coordinates[i + @size*j][2] == @@cell_damaged
+            print @@cell_damaged
+          elsif @coordinates[i + @size*j][2] == @@cell_shooted
+            print @@cell_shooted
+          else
+            print @@cell_default
+          end
+        end
         j += 1
       end
       j = 0
@@ -105,8 +109,7 @@ class GameField
     i = 0
     while i < @coordinates.length
       if @coordinates[i][0] == x and @coordinates[i][1] == y
-        # @helping_field[i][2] =  @@cell_shooted 
-        @helping_field[i][2] = @coordinates[i][2] == @@cell_ship ? @@cell_damaged : @@cell_shooted
+        @coordinates[i][2] = @coordinates[i][2] == @@cell_ship ? @@cell_damaged : @@cell_shooted
       end
       i += 1
     end

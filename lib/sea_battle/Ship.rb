@@ -4,6 +4,4 @@ class Ship
     @size = size
     @vertical = vertical
   end
-  
-  
 end
