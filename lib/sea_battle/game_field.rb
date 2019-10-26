@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
+# game field basic class
 class GameField
-  @@cell_default = " ~ "
-  @@cell_shooted = " + "
-  @@cell_ship = "[ ]"
-  @@cell_border = " - "
-  @@cell_damaged = "[x]"
+  @@cell_default = ' ~ '
+  @@cell_shooted = ' + '
+  @@cell_ship = '[ ]'
+  @@cell_border = ' - '
+  @@cell_damaged = '[x]'
 
   attr_reader :coordinates
 
@@ -13,43 +16,49 @@ class GameField
     @helping_field = create_game_field
   end
 
-  def test
-    p "Hello from parent"
-  end
-
   def print_game_field(helping = false)
-    print " "
-    print " " if @size > 9
+    print ' '
+    print ' ' if @size > 9
     (1...@size).each { |i| print " #{i} " }
     puts
     i = 1
     while i < @size
       print i
-      print " " if i < 10
+      print ' ' if i < 10
       j = 0
-      while j< @size - 1
-        print " " if j > 9
-        print @coordinates[i + @size*j][2] unless helping
-        print @helping_field[i + @size*j][2] if helping
-        # print " #{@coordinates[i+@size*j][0]} <=> #{@coordinates[i+@size*j][1]} "
+      while j < @size - 1
+        print ' ' if j > 9
+        print @coordinates[i + @size * j][2] unless helping
+        print @helping_field[i + @size * j][2] if helping
         j += 1
       end
       j = 0
       puts
       i += 1
     end
+
+    # @size.times do
+    #   |i| print i
+    #   print ' ' if i < 10
+    #   j = 0
+    #   while j < @size - 1
+    #     print ' ' if j > 9
+    #     print @coordinates[i + @size * j][2] unless helping
+    #     print @helping_field[i + @size * j][2] if helping
+    #     j += 1
+    #   end
+    #   j = 0
+    #   puts
+    # end
   end
-
-
 
   def ship_set(ship, x, y)
     x -= 1
-    if !ship_check(ship, x, y)
-      return
-    end
+    return unless ship_check(ship, x, y)
+
     i = 0
     while i < @coordinates.length
-      if @coordinates[i][0] == x and @coordinates[i][1] == y
+      if (@coordinates[i][0] == x) && (@coordinates[i][1] == y)
         j = 0
         while j < ship.size
           if ship.vertical
@@ -63,18 +72,26 @@ class GameField
             @coordinates[i + ship.size][2] = @@cell_border
             @coordinates[i - 1 + @size][2] = @@cell_border
             @coordinates[i + j + @size][2] = @@cell_border
-            @coordinates[i  + ship.size + @size][2] = @@cell_border unless @coordinates[i  + ship.size + @size] == nil
+            unless @coordinates[i + ship.size + @size].nil?
+              @coordinates[i + ship.size + @size][2] = @@cell_border
+            end
           else
-            @coordinates[i + @size*j][2] = @@cell_ship
+            @coordinates[i + @size * j][2] = @@cell_ship
 
             @coordinates[i - 1 - @size][2] = @@cell_border
             @coordinates[i - @size][2] = @@cell_border
-            @coordinates[i - 1 + @size*ship.size][2] = @@cell_border unless @coordinates[i - 1 + @size*ship.size] == nil
+            unless @coordinates[i - 1 + @size * ship.size].nil?
+              @coordinates[i - 1 + @size * ship.size][2] = @@cell_border
+            end
             @coordinates[i - 1 + @size * j][2] = @@cell_border
 
             @coordinates[i + 1 - @size][2] = @@cell_border
-            @coordinates[i + @size*ship.size][2] = @@cell_border unless @coordinates[i + @size*ship.size] == nil
-            @coordinates[i + 1 + @size*ship.size][2] = @@cell_border unless @coordinates[i + 1 + @size*ship.size] == nil
+            unless @coordinates[i + @size * ship.size].nil?
+              @coordinates[i + @size * ship.size][2] = @@cell_border
+            end
+            unless @coordinates[i + 1 + @size * ship.size].nil?
+              @coordinates[i + 1 + @size * ship.size][2] = @@cell_border
+            end
             @coordinates[i + 1 + @size * j][2] = @@cell_border
           end
           j += 1
@@ -82,17 +99,17 @@ class GameField
       end
       i += 1
     end
-    p "Ship successfully set"
-    return true
+    p 'Ship successfully set'
+    true
   end
 
   def auto_field_filling
     fleat = []
     fleat << Ship.new(4, [true, false].sample)
-    2.times {fleat << Ship.new(3, [true, false].sample)}
-    3.times {fleat << Ship.new(2, [true, false].sample)}
-    4.times {fleat << Ship.new(1, [true, false].sample)}
-    fleat.each{|i| p i.size , i.vertical}
+    2.times { fleat << Ship.new(3, [true, false].sample) }
+    3.times { fleat << Ship.new(2, [true, false].sample) }
+    4.times { fleat << Ship.new(1, [true, false].sample) }
+    fleat.each { |i| p i.size, i.vertical }
 
     i = 0
     while i < fleat.length
@@ -100,17 +117,16 @@ class GameField
     end
   end
 
-  def shoot(x,y)
+  def shoot(x, y)
     x -= 1
     i = 0
     while i < @coordinates.length
-      if @coordinates[i][0] == x and @coordinates[i][1] == y
-        # @helping_field[i][2] =  @@cell_shooted 
+      if (@coordinates[i][0] == x) && (@coordinates[i][1] == y)
+        # @helping_field[i][2] =  @@cell_shooted
         @helping_field[i][2] = @coordinates[i][2] == @@cell_ship ? @@cell_damaged : @@cell_shooted
       end
       i += 1
     end
-
   end
 
   private
@@ -130,32 +146,31 @@ class GameField
     coordinates
   end
 
-
   def ship_check(ship, x, y)
     if ship.vertical
-      if y  + ship.size > @size
+      if y + ship.size > @size
         p "Wrong coordinate 'y', ship is too big!"
         return false
       end
     else
-      if x  + ship.size >= @size
+      if x + ship.size >= @size
         p "Wrong coordinate 'x', ship is too big!"
         return false
       end
     end
     i = 0
     while i < @coordinates.length
-      if @coordinates[i][0] == x and @coordinates[i][1] == y
+      if (@coordinates[i][0] == x) && (@coordinates[i][1] == y)
         j = 0
         while j < ship.size
           if ship.vertical
             if  @coordinates[i + j][2] != @@cell_default
-              p "Cell is already filled, vertical"
+              p 'Cell is already filled, vertical'
               return false
             end
           else
             if @coordinates[i + @size * j][2] != @@cell_default
-              p "Cell is already filled, horizontal"
+              p 'Cell is already filled, horizontal'
               return false
             end
           end
@@ -166,6 +181,4 @@ class GameField
     end
     true
   end
-
-
 end
