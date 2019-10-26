@@ -105,15 +105,8 @@ class GameField
 
   def create_game_field
     coordinates = []
-    x = 0
-    y = 0
-    while x < @size
-      while y < @size
-        coordinates << [x, y, @@cell_default]
-        y += 1
-      end
-      x += 1
-      y = 0
+    @size.times do |x|
+      @size.times { |y| coordinates << [x, y, @@cell_default] }
     end
     coordinates
   end
@@ -131,38 +124,28 @@ class GameField
     end
   end
 
-  def ship_check(ship, x, y)
+  def ship_check(ship, coord_x, coord_y)
     if ship.vertical
-      if y + ship.size > @size
+      if coord_y + ship.size > @size
         p "Wrong coordinate 'y', ship is too big!"
         return false
       end
-    else
-      if x + ship.size >= @size
-        p "Wrong coordinate 'x', ship is too big!"
-        return false
-      end
+    elsif coord_x + ship.size >= @size
+      p "Wrong coordinate 'x', ship is too big!"
+      return false
     end
-    i = 0
-    while i < @coordinates.length
-      if (@coordinates[i][0] == x) && (@coordinates[i][1] == y)
-        j = 0
-        while j < ship.size
-          if ship.vertical
-            if  @coordinates[i + j][2] != @@cell_default
-              p 'Cell is already filled, vertical'
-              return false
-            end
-          else
-            if @coordinates[i + @size * j][2] != @@cell_default
-              p 'Cell is already filled, horizontal'
-              return false
-            end
-          end
-          j += 1
+    @coordinates.length.times do |i|
+      next unless @coordinates[i][0] == coord_x && @coordinates[i][1] == coord_y
+
+      ship.size.times do |j|
+        if ship.vertical && @coordinates[i + j][2] != @@cell_default
+          p 'Cell is already filled, vertical'
+          return false
+        elsif @coordinates[i + @size * j][2] != @@cell_default
+          p 'Cell is already filled, horizontal'
+          return false
         end
       end
-      i += 1
     end
     true
   end
