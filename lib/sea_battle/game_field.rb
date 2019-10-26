@@ -89,15 +89,16 @@ class GameField
     end
   end
 
-  def shoot(x, y)
-    x -= 1
-    i = 0
-    while i < @coordinates.length
-      if (@coordinates[i][0] == x) && (@coordinates[i][1] == y)
-        # @helping_field[i][2] =  @@cell_shooted
-        @helping_field[i][2] = @coordinates[i][2] == @@cell_ship ? @@cell_damaged : @@cell_shooted
+  def shoot(coord_x, coord_y)
+    coord_x -= 1
+    @coordinates.length.times do |i|
+      if (@coordinates[i][0] == coord_x) && (@coordinates[i][1] == coord_y)
+        if @coordinates[i][2] == @@cell_ship
+          @helping_field[i][2] = @@cell_damaged
+        else
+          @helping_field[i][2] =  @@cell_shooted
+        end
       end
-      i += 1
     end
   end
 
