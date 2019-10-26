@@ -5,6 +5,9 @@
 # KDE directory preferences
 .directory
 
+###VSCode### 
+
+.vscode/
 
 ###JetBrains###
 
