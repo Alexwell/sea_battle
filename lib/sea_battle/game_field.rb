@@ -21,44 +21,16 @@ class GameField
     print ' ' if @size > 9
     (1...@size).each { |i| print " #{i} " }
     puts
-    i = 1
-    while i < @size
-      print i
-      print ' ' if i < 10
-      j = 0
-      while j < @size - 1
-        print ' ' if j > 9
-        print @coordinates[i + @size * j][2] unless helping
-        print @helping_field[i + @size * j][2] if helping
-        j += 1
-      end
-      j = 0
-      puts
-      i += 1
-    end
-
-    # @size.times do
-    #   |i| print i
-    #   print ' ' if i < 10
-    #   j = 0
-    #   while j < @size - 1
-    #     print ' ' if j > 9
-    #     print @coordinates[i + @size * j][2] unless helping
-    #     print @helping_field[i + @size * j][2] if helping
-    #     j += 1
-    #   end
-    #   j = 0
-    #   puts
-    # end
+    print_inner_field(helping)
   end
 
-  def ship_set(ship, x, y)
-    x -= 1
-    return unless ship_check(ship, x, y)
+  def ship_set(ship, coord_x, coord_y)
+    coord_x -= 1
+    return unless ship_check(ship, coord_x, coord_y)
 
     i = 0
     while i < @coordinates.length
-      if (@coordinates[i][0] == x) && (@coordinates[i][1] == y)
+      if (@coordinates[i][0] == coord_x) && (@coordinates[i][1] == coord_y)
         j = 0
         while j < ship.size
           if ship.vertical
@@ -144,6 +116,19 @@ class GameField
       y = 0
     end
     coordinates
+  end
+
+  def print_inner_field(helping)
+    @size.times do |i|
+      print i
+      print ' ' if i < 10
+      (@size - 1).times do |j|
+        print ' ' if j > 9
+        print @coordinates[i + @size * j][2] unless helping
+        print @helping_field[i + @size * j][2] if helping
+      end
+      puts
+    end
   end
 
   def ship_check(ship, x, y)
